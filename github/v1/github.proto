@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package github.v1;
 
-option go_package = "github.com/arcd/app/github/v1;githubv1";
+option go_package = "github.com/arcd-io/arcd/gen/github/v1;githubv1";
 
 message AddRepositoryRequest {
   string name = 1;

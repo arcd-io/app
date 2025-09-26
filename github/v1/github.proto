@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package github.v1;
+
+option go_package = "github.com/arcd/app/github/v1;githubv1";
+
+message AddRepositoryRequest {
+  string name = 1;
+}
+
+message AddRepositoryResponse {
+  string id = 1;
+}
+
+service GithubService {
+  rpc AddRepository(AddRepositoryRequest) returns (AddRepositoryResponse) {}
+}

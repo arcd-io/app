@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/arcd-io/arcd/gen/auth/v1;authv1";
+
+message GetSessionRequest {
+  string token = 1;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string image = 4;
+}
+
+message GetSessionResponse {
+  User user = 1;
+  string expires_at = 2;
+}
+
+service AuthService {
+  rpc GetSession(GetSessionRequest) returns (GetSessionResponse) {}
+}

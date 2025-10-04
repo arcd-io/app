@@ -1,0 +1,43 @@
+name: "Arcd"
+
+services:
+  arcd-database:
+    image: postgres:latest
+    container_name: arcd-database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: arcd
+    ports:
+      - "25432:5432"
+    volumes:
+      - ./.docker/postgres_data:/var/lib/postgresql/data
+    networks:
+      - arcd
+  arcd-jaeger:
+    image: jaegertracing/jaeger:2.4.0 
+    container_name: arcd-jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+      - "5778:5778"
+      - "9411:9411"
+  arcd--minio:
+    image: minio/minio:latest
+    container_name: arcd-minio
+    ports:
+      - "9000:9000" 
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./.docker/minio/data:/data
+    networks:
+      - arcd
+
+networks:
+  arcd:
+    driver: bridge
